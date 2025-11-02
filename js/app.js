@@ -33,13 +33,20 @@ document.querySelectorAll("div").forEach(function (square) {
 
 function playerSelect(e) {
   if (!playerChoices.includes(e.target.id[2])) {
-    playerChoices.push(e.target.id[2])
+    playerChoices.push(parseInt(e.target.id[2]))
     e.target.textContent = 'X'
     e.target.removeEventListener('click', playerSelect)
+    cpuSelect()
   }
-  console.log(playerChoices)
+  console.log('playerChoices:' + playerChoices)
 }
 
 function cpuSelect() {
-  
+  let randomIdx = Math.floor(Math.random() * (8 - 0 + 1)) + 0
+  if (!playerChoices.includes(randomIdx)) {
+    cpuChoices.push(randomIdx)
+    console.log(boardEl.children[randomIdx].textContent = 'O')
+  }
+  console.log('cpuChoices:' + cpuChoices)
 }
+
