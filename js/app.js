@@ -14,6 +14,13 @@ const winningCombos = [
 /*---------------------------- Variables (state) ----------------------------*/
 
 let msg = 'Wanna play?'
+
+let board = [
+  [0,0,0],
+  [0,0,0],
+  [0,0,0]
+]
+
 let playerChoices = [], cpuChoices = []
 
 /*------------------------ Cached Element References ------------------------*/
@@ -32,21 +39,37 @@ document.querySelectorAll("div").forEach(function (square) {
 /*-------------------------------- Functions --------------------------------*/
 
 function playerSelect(e) {
-  if (!playerChoices.includes(e.target.id[2])) {
+  if (!playerChoices.includes(e.target.id[2]) && !cpuChoices.includes(e.target.id[2])) {
     playerChoices.push(parseInt(e.target.id[2]))
     e.target.textContent = 'X'
     e.target.removeEventListener('click', playerSelect)
     cpuSelect()
+    checkWinner()
   }
-  console.log('playerChoices:' + playerChoices)
+  console.log('playerChoices: ' + playerChoices)
 }
 
 function cpuSelect() {
-  let randomIdx = Math.floor(Math.random() * (8 - 0 + 1)) + 0
-  if (!playerChoices.includes(randomIdx)) {
+  let randomIdx = getRandomInt()
+  while (playerChoices.includes(randomIdx) || cpuChoices.includes(randomIdx)) {
+    randomIdx = getRandomInt()
+  }
+  if (!winningCombos.includes(playerChoices)) {
     cpuChoices.push(randomIdx)
     console.log(boardEl.children[randomIdx].textContent = 'O')
+    console.log('cpuChoices:' + cpuChoices)
   }
-  console.log('cpuChoices:' + cpuChoices)
 }
 
+function getRandomInt() {
+  let randomInt = Math.floor(Math.random() * (8 - 0 + 1)) + 0
+  return randomInt
+}
+
+function checkWinner() {
+  let winner = false
+  winningCombos.forEach(combo => {
+    if (combo.includes(playerChoices)) winner = true
+  })
+  console.log("winner: " + winner)
+}
