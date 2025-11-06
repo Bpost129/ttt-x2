@@ -44,11 +44,36 @@ document.querySelectorAll("div").forEach(function (square) {
 
 function init() {
   console.log('INIT!')
+  render()
 }
-
 
 init()
 
+function render() {
+  updateBoard()
+  updateMessage()
+}
+
+function updateBoard() {
+  for (let i = 0; i < board.length; i++) {
+    if (board[i] === 1) {
+      squareEls[i].textContent = 'X'
+    }
+    if (board[i] === -1) {
+      squareEls[i].textContent = 'O'
+    }
+  }
+}
+
+function updateMessage() {
+  if (!winner && !tie) {
+    msg = turn === 1 ? "Player X's Turn" : "Player O's Turn"
+  } else if (!winner && tie) {
+    msg = "It's a tie!"
+  } else {
+    msg = turn === 1 ? "Congratulations Player X!" : "Congratulations Player O!"
+  }
+}
 
 function handleSelection() {
 
