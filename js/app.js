@@ -13,17 +13,13 @@ const winningCombos = [
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let msg = 'Wanna play?'
-
-let board = [
-  [0,0,0],
-  [0,0,0],
-  [0,0,0]
-]
+let board = [0,0,0,0,0,0,0,0,0]
 let turn = 1
 let winner = false
 let tie = false
 
+
+let msg = 'Wanna play?'
 let playerChoices = [], cpuChoices = []
 
 /*------------------------ Cached Element References ------------------------*/
@@ -44,25 +40,27 @@ document.querySelectorAll("div").forEach(function (square) {
 
 function init() {
   console.log('INIT!')
+  board = [1,-1,0,0,0,0,0,0,0]
   render()
 }
 
 init()
 
 function render() {
+  
   updateBoard()
   updateMessage()
 }
 
 function updateBoard() {
-  for (let i = 0; i < board.length; i++) {
-    if (board[i] === 1) {
-      squareEls[i].textContent = 'X'
+  board.forEach((sqr, idx) => {
+    if (sqr === 1) {
+      squareEls[idx].textContent = 'X'
     }
-    if (board[i] === -1) {
-      squareEls[i].textContent = 'O'
+    if (sqr === -1) {
+      squareEls[idx].textContent = 'O'
     }
-  }
+  })
 }
 
 function updateMessage() {
