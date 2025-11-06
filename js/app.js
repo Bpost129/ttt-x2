@@ -25,7 +25,7 @@ let playerChoices = [], cpuChoices = []
 
 /*------------------------ Cached Element References ------------------------*/
 
-const boardEl = document.querySelector('.board')
+const squareEls = document.querySelectorAll('.sqr')
 const messageEl = document.querySelector('#message')
 
 messageEl.textContent = msg
@@ -56,7 +56,7 @@ function cpuSelect() {
   }
   if (!winningCombos.includes(playerChoices)) {
     cpuChoices.push(randomIdx)
-    console.log(boardEl.children[randomIdx].textContent = 'O')
+    console.log(squareEls[randomIdx].textContent = 'O')
     console.log('cpuChoices:' + cpuChoices)
   }
 }
