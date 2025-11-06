@@ -24,6 +24,7 @@ let playerChoices = [], cpuChoices = []
 
 /*------------------------ Cached Element References ------------------------*/
 
+// const boardEl = document.querySelector('.board')
 const squareEls = document.querySelectorAll('.sqr')
 const messageEl = document.querySelector('#message')
 
@@ -37,6 +38,15 @@ document.querySelectorAll("div").forEach(function (square) {
 
 /*-------------------------------- Functions --------------------------------*/
 
+function handleSelection(e) {
+  let sqIdx = parseInt(e.target.id[2])
+  if (board[sqIdx] !== 0 || winner) {
+    console.log('bruh')
+    return
+  } else {
+
+  }
+}
 
 function init() {
   console.log('INIT!')
@@ -73,8 +83,24 @@ function updateMessage() {
   }
 }
 
-function handleSelection() {
+// selection helpers
+function placePiece(idx) {
+  board[idx] = turn
+}
 
+function checkForTie() {
+  let count = 0
+  for (let i = 0; i < board.length; i++) {
+    if (board[i] === 0) count++
+  }
+
+  tie = count === 0
+}
+
+function checkForWinner() {
+  winningCombos.forEach(combo => {
+    
+  })
 }
 
 
