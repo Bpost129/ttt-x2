@@ -27,8 +27,8 @@ let playerChoices = [], cpuChoices = []
 // const boardEl = document.querySelector('.board')
 const squareEls = document.querySelectorAll('.sqr')
 const messageEl = document.querySelector('#message')
+const resetBtn = document.querySelector('#reset')
 
-messageEl.textContent = msg
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -36,24 +36,30 @@ document.querySelectorAll("div").forEach(function (square) {
   square.addEventListener("click", handleSelection)
 })
 
+resetBtn.addEventListener('click', init)
+
 /*-------------------------------- Functions --------------------------------*/
 
 function handleSelection(e) {
   let sqIdx = parseInt(e.target.id[2])
   if (board[sqIdx] !== 0 || winner) {
     console.log(winner)
+    console.log(tie)
     return
   } else {
     placePiece(sqIdx)
     checkForTie()
     checkForWinner()
     switchPlayerTurn()
-
+    render()
   }
 }
 
 function init() {
   board = [0,0,0,0,0,0,0,0,0]
+  squareEls.forEach(sqr => {
+    sqr.textContent = ''
+  })
   render()
 }
 
@@ -83,11 +89,13 @@ function updateMessage() {
   } else {
     msg = turn === 1 ? "Congratulations Player X!" : "Congratulations Player O!"
   }
+  messageEl.textContent = msg
 }
 
 // selection helpers
 function placePiece(idx) {
   board[idx] = turn
+  console.log(board)
 }
 
 function checkForTie() {
@@ -97,13 +105,15 @@ function checkForTie() {
   }
 
   tie = count === 0
+
+  if (tie) msg = ""
 }
 
 function checkForWinner() {
   winningCombos.forEach(combo => {
     let total = 0
     for (let i = 0; i < combo.length; i++) {
-      total += combo[i]
+      total += board[combo[i]]
     }
 
     if (Math.abs(total) === 3) {
