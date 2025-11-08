@@ -41,23 +41,25 @@ document.querySelectorAll("div").forEach(function (square) {
 function handleSelection(e) {
   let sqIdx = parseInt(e.target.id[2])
   if (board[sqIdx] !== 0 || winner) {
-    console.log('bruh')
+    console.log(winner)
     return
   } else {
+    placePiece(sqIdx)
+    checkForTie()
+    checkForWinner()
+    switchPlayerTurn()
 
   }
 }
 
 function init() {
-  console.log('INIT!')
-  board = [1,-1,0,0,0,0,0,0,0]
+  board = [0,0,0,0,0,0,0,0,0]
   render()
 }
 
 init()
 
 function render() {
-  
   updateBoard()
   updateMessage()
 }
@@ -99,8 +101,23 @@ function checkForTie() {
 
 function checkForWinner() {
   winningCombos.forEach(combo => {
-    
+    let total = 0
+    for (let i = 0; i < combo.length; i++) {
+      total += combo[i]
+    }
+
+    if (Math.abs(total) === 3) {
+      winner = true
+    }
   })
+}
+
+function switchPlayerTurn() {
+  if (winner) {
+    return
+  } else {
+    turn *= -1
+  }
 }
 
 
