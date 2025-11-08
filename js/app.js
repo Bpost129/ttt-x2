@@ -56,6 +56,7 @@ function handleSelection(e) {
 }
 
 function init() {
+  turn = 1
   board = [0,0,0,0,0,0,0,0,0]
   squareEls.forEach(sqr => {
     sqr.textContent = ''
@@ -95,7 +96,6 @@ function updateMessage() {
 // selection helpers
 function placePiece(idx) {
   board[idx] = turn
-  console.log(board)
 }
 
 function checkForTie() {
