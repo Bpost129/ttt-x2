@@ -58,6 +58,8 @@ function handleSelection(e) {
 function init() {
   turn = 1
   board = [0,0,0,0,0,0,0,0,0]
+  winner = false
+  tie = false
   squareEls.forEach(sqr => {
     sqr.textContent = ''
   })
